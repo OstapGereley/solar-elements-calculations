@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using OSEC.Functionality;
+using OSEC.Models;
 
 namespace OSEC
 {
@@ -23,6 +25,10 @@ namespace OSEC
         public MainWindow()
         {
             InitializeComponent();
+
+            var test = new Calculations();
+            test.inputDots = new List<Dots>() {new Dots() {Current = } };
+
         }
     }
 }

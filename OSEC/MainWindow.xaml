@@ -3,10 +3,36 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d3="http://research.microsoft.com/DynamicDataDisplay/1.0"
         xmlns:local="clr-namespace:OSEC"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="OSEC" Height="350" Width="525">
     <Grid>
-        
+        <StackPanel>
+            <Menu></Menu>
+            <TabControl>
+                <TabItem Header="Input data">
+                    <DataGrid></DataGrid>
+                </TabItem>
+                <TabItem Header="Graph">
+                    <d3:ChartPlotter Name="VoltAmperChart" Margin="5">
+                        <d3:ChartPlotter.HorizontalAxis>
+                            <d3:HorizontalAxis Name="VoltageAxis"></d3:HorizontalAxis>
+                        </d3:ChartPlotter.HorizontalAxis>
+                        <d3:ChartPlotter.VerticalAxis>
+                            <d3:VerticalAxis Name="CurrentAxis"></d3:VerticalAxis>
+                        </d3:ChartPlotter.VerticalAxis>
+                        <d3:LineGraph x:Name="vaCharacteristics" Stroke="Blue" StrokeThickness="4"/>
+
+                            <d3:Header FontFamily="Arial" Content="Вольт-амперна характеристика" FontSize="14"></d3:Header>
+                        <d3:VerticalAxisTitle FontFamily="Arial" FontSize="14" Content="Струм"></d3:VerticalAxisTitle>
+                        <d3:HorizontalAxisTitle FontFamily="Arial" FontSize="14" Content="Напруга"></d3:HorizontalAxisTitle>
+                    </d3:ChartPlotter>
+                </TabItem>
+                <TabItem Header="Overal results">
+                </TabItem>
+            </TabControl>
+            <StatusBar></StatusBar>
+        </StackPanel>
     </Grid>
 </Window>
