@@ -4,18 +4,17 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MoreLinq;
 using OSEC.Models;
 
 namespace OSEC.Functionality
 {
     class Calculations
     {
-        public double maxI;
-        public double maxV;
-        public double maxP;
-        public Dots ExtremeI;
-        public Dots ExtremeV;
-        //TODO: додати івент онАдд і рахувати потужність для кожного набору елементів
+        public Dots MaxPIV;
+        public Dots ExtremeI = new Dots();
+        public Dots ExtremeV = new Dots();
+        
         public List<Dots> inputDots;
         
 
@@ -26,47 +25,31 @@ namespace OSEC.Functionality
 
         public void CalcExtremeValues()
         {
-            ExtremeI.Current = inputDots[0].Current;
-            ExtremeV.Voltage = inputDots[0].Voltage;
-
-            foreach (var el in inputDots)
-            {
-                if (el.Current < ExtremeV.Current)
-                {
-                    ExtremeV.Voltage = el.Voltage;
-                    ExtremeV.Current = el.Current;
-                }
-
-                if (el.Voltage < ExtremeI.Voltage)
-                {
-                    ExtremeI.Current = el.Current;
-                    ExtremeI.Voltage = el.Voltage;
-                }
-            }
+            ExtremeI = inputDots.FirstOrDefault(x => x.Voltage > 0);
+            ExtremeV = inputDots.LastOrDefault(x => x.Current < 0);
+            
         }
 
         public List<Dots> GetGraphDots()
         {
             var startIndex = inputDots.FindIndex(a => a == ExtremeI);
             var endIndex = inputDots.FindIndex(a => a == ExtremeV);
-            return inputDots.GetRange(startIndex, inputDots.Count - (endIndex - startIndex));
+            return inputDots.GetRange(startIndex, endIndex - startIndex + 1);
         }
 
         public void GetMaxValues(List<Dots> graphList)
         {
-            maxI = graphList.Max(s => s.Current);
-            maxV = graphList.Max(s => s.Voltage);
-            maxP = maxI * maxV;
+            MaxPIV = graphList.MinBy(x => x.Power);
         }
 
         public void FillFactor()
         {
-            fillFactor = (maxI*maxV)/(ExtremeI.Current*ExtremeV.Voltage);
+            fillFactor = (MaxPIV.Power)/(ExtremeI.Current*ExtremeV.Voltage);
         }
 
         public void ConvertingPowerEfficiency()
         {
-            convertingPowerEfficiency = maxI*maxV/solarPower;
+            convertingPowerEfficiency = MaxPIV.Power/solarPower;
         }
     }
 }
