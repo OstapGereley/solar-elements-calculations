@@ -8,31 +8,30 @@
         mc:Ignorable="d"
         Title="OSEC" Height="350" Width="525">
     <Grid>
-        <StackPanel>
-            <Menu></Menu>
-            <TabControl>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+        </Grid.RowDefinitions>
+            <Menu Grid.Row="0"></Menu>
+            <TabControl Grid.Row="1" Height="Auto" >
                 <TabItem Header="Input data">
                     <DataGrid></DataGrid>
                 </TabItem>
-                <TabItem Header="Graph">
+                <TabItem Header="Graph" Margin="-2,0,-2,-2">
                     <d3:ChartPlotter Name="VoltAmperChart" Margin="5">
-                        <d3:ChartPlotter.HorizontalAxis>
-                            <d3:HorizontalAxis Name="VoltageAxis"></d3:HorizontalAxis>
-                        </d3:ChartPlotter.HorizontalAxis>
-                        <d3:ChartPlotter.VerticalAxis>
-                            <d3:VerticalAxis Name="CurrentAxis"></d3:VerticalAxis>
-                        </d3:ChartPlotter.VerticalAxis>
-                        <d3:LineGraph x:Name="vaCharacteristics" Stroke="Blue" StrokeThickness="4"/>
-
-                            <d3:Header FontFamily="Arial" Content="Вольт-амперна характеристика" FontSize="14"></d3:Header>
-                        <d3:VerticalAxisTitle FontFamily="Arial" FontSize="14" Content="Струм"></d3:VerticalAxisTitle>
-                        <d3:HorizontalAxisTitle FontFamily="Arial" FontSize="14" Content="Напруга"></d3:HorizontalAxisTitle>
+                        <d3:Header FontFamily="Arial" FontSize="12">Вольт-амперна характеристика сонячного елементу</d3:Header>
+                        <d3:VerticalAxisTitle FontFamily="Arial" FontSize="10" Content="Сила струму"/>
+                        <d3:HorizontalAxisTitle FontFamily="Arial" FontSize="10" Content="Напруга" />
+                        <d3:CursorCoordinateGraph Name="cursorGraph"/>
+                        <d3:AxisCursorGraph></d3:AxisCursorGraph>
+                        
                     </d3:ChartPlotter>
                 </TabItem>
                 <TabItem Header="Overal results">
                 </TabItem>
             </TabControl>
-            <StatusBar></StatusBar>
-        </StackPanel>
+            
+        <StatusBar Grid.Row="2"></StatusBar>
     </Grid>
 </Window>

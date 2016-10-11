@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Research.DynamicDataDisplay;
+using Microsoft.Research.DynamicDataDisplay.DataSources;
+using Microsoft.Research.DynamicDataDisplay.PointMarkers;
 using OSEC.Functionality;
 using OSEC.Models;
 
@@ -27,8 +30,23 @@ namespace OSEC
             InitializeComponent();
 
             var test = new Calculations();
-            test.inputDots = new List<Dots>() {new Dots() {Current = } };
+            test.inputDots = new List<Dots>() {new Dots() {Current = 1, Voltage = 1}, new Dots() {Current = 2, Voltage = 2}, new Dots() {Current = -2, Voltage = -2} };
 
+
+            var xDataSource = test.inputDots.Select(a => a.Current).ToList().AsXDataSource();
+            var yDataSource = test.inputDots.Select(a => a.Voltage).ToList().AsYDataSource();
+
+            xDataSource.SetXMapping(X => X);
+            yDataSource.SetYMapping(Y => Y);
+            //TODO: виводити потужність для точки, а не дані, очевидні з графіку
+            xDataSource.AddMapping(ShapeElementPointMarker.ToolTipTextProperty, X => string.Format("Напруга - {0}", X) );
+            
+            var compositeDataSource = new CompositeDataSource(xDataSource, yDataSource);
+            
+            //TODO: виділяти осі координат жирним чи кольором
+            VoltAmperChart.AddLineGraph(compositeDataSource, new Pen(Brushes.Gold, 3), new SampleMarker(), new PenDescription());
+            VoltAmperChart.FitToView();
+            VoltAmperChart.InvalidateVisual();
         }
     }
 }

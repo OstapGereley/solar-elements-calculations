@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,9 @@ namespace OSEC.Functionality
         public double maxP;
         public Dots ExtremeI;
         public Dots ExtremeV;
+        //TODO: додати івент онАдд і рахувати потужність для кожного набору елементів
         public List<Dots> inputDots;
+        
 
         public double solarPower;
 
