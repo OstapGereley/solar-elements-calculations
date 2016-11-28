@@ -9,7 +9,7 @@ using OSEC.Models;
 
 namespace OSEC.Functionality
 {
-    class Calculations
+    public class Calculations
     {
         public Dots MaxPIV;
         public Dots ExtremeI = new Dots();
