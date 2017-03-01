@@ -21,10 +21,10 @@
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="30"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <DataGrid Grid.Row="0" Margin="4" Name="InputGrid" CanUserAddRows="True" ></DataGrid>
+                    <DataGrid Grid.Row="0" Margin="4" Name="InputGrid" CanUserAddRows="True"></DataGrid>
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
-                        <Button Margin="4" Content="Ввести" Click="InputButton_Click"></Button>
-                        <Button Margin="4" Content="Завантажити з файлу"></Button>
+                        <Button Margin="4" Content="Ввести" Click="InputButton_Click" Visibility="Collapsed"></Button>
+                        <Button Margin="4" Content="Завантажити з файлу" Click="ReadFromFile"></Button>
                     </StackPanel>
                 </Grid>
                 
@@ -53,7 +53,12 @@
                 <StackPanel>
                     <Label Name="CountLabel"></Label>
                     <Label>Потужність лампи:</Label>
-                    <TextBox Name="LightSourcePowerBox"></TextBox>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Height="20" Width="100" Name="LightSourcePowerBox"></TextBox>
+                        <Label>e</Label>
+                        <TextBox Width="50" Height="20" Name="ExponentValueBox"></TextBox>
+                    </StackPanel>
+                    
                     <Label Name="MaxPowerLabel"></Label>
                     <Label Name="FillFactorLabel"></Label>
                     <Label Name="ConversionEfficiencyLabel"></Label>
